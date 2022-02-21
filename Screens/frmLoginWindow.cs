@@ -44,7 +44,7 @@ namespace PointofSaleSoftware
                         if (sdr.Read())
                         {
                             this.Hide();
-                            DashboardForm df = new DashboardForm();
+                            POS df = new POS();
                             df.Show();
 
                         }

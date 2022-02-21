@@ -28,7 +28,18 @@ namespace PointofSaleSoftware.Screens.ProductsF
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            Close();
+            CloseForm();
+        }
+
+        private void CloseForm()
+        {
+            this.Hide();
+            POS dashboardForm = new POS();
+            dashboardForm.Show();
+        }
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            CloseForm();
         }
         private void mySuppliersView()
         {

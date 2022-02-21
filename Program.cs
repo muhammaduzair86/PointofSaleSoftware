@@ -17,8 +17,10 @@ namespace PointofSaleSoftware
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Screens.ProductsF.frmPurchase());
-            Application.Run(new frmSearchPurchase());
+            //Application.Run(new frmLoginWindow());
+            Application.Run(new Screens.ProductsF.SaleForm());
+            
+
         }
     }
 }

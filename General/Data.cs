@@ -21,11 +21,13 @@ namespace PointofSaleSoftware.General
                     cmd.CommandType = CommandType.Text;
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
-                }
+                    }
             }
 
             return dt;
         }
+
+        
 
         //insert, delete, update queries
         public static int RunActionQuery(string query, CommandType commandType = CommandType.Text)
@@ -60,6 +62,7 @@ namespace PointofSaleSoftware.General
             controlName.ValueMember = valueMember;
             controlName.DisplayMember = displayMember;
             controlName.DataSource = RunSelectQuery(query);
+            controlName.SelectedIndex = -1;
         }
 
     }

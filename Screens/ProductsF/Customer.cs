@@ -1,52 +1,54 @@
 ﻿using PointofSaleSoftware.General;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace PointofSaleSoftware.Screens.ProductsF
 {
     public partial class Customer : MetroFramework.Forms.MetroForm
     {
-       
+
         public Customer()
         {
-           
+
             InitializeComponent();
         }
 
-      
+
 
         private void Customer_Load(object sender, EventArgs e)
         {
-           
+
             myGridView();
             ClearForm();
             btn_Update.Enabled = false;
+            doMaximize();
 
+        }
+        private void doMaximize()
+        {
+            this.WindowState = FormWindowState.Maximized;
+            int height = Screen.PrimaryScreen.Bounds.Height;
+            int width = Screen.PrimaryScreen.Bounds.Width;
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-          if (cValid())
+            if (cValid())
             {
                 using (SqlConnection con = new SqlConnection(ApplicationSetting.ConnectionString()))
                 {
-                    using(SqlCommand cmd = new SqlCommand("usp_Customers_InsertCustomer",con))
+                    using (SqlCommand cmd = new SqlCommand("usp_Customers_InsertCustomer", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@CName", CustomerName.Text);
-                            cmd.Parameters.AddWithValue("@CAddress", CustomerAddress.Text);
-                            cmd.Parameters.AddWithValue("@CContact", CustomerCell.Text);
+                        cmd.Parameters.AddWithValue("@CName", CustomerName.Text);
+                        cmd.Parameters.AddWithValue("@CAddress", CustomerAddress.Text);
+                        cmd.Parameters.AddWithValue("@CContact", CustomerCell.Text);
                         con.Open();
                         int id = Convert.ToInt32(cmd.ExecuteScalar());
-                        MessageBox.Show("Customer is saved Successfully in the System","Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Customer is saved Successfully in the System", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //DataTable dt = new DataTable();
                         //SqlCommand myCmd = new SqlCommand("usp_CustomersInfo", con);
                         //myCmd.CommandType = CommandType.StoredProcedure;
@@ -81,18 +83,22 @@ namespace PointofSaleSoftware.Screens.ProductsF
                 }
             }
         }
+        private void CloseForm()
+        {
+            this.Close();            
+            POS dashboardForm = new POS();
+            dashboardForm.Show();
+        }
         private void metroButton2_Click(object sender, EventArgs e)
         {
-            this.Close();
-            DashboardForm dashboardForm = new DashboardForm();
-            dashboardForm.Show();
+            CloseForm();
         }
         private bool cValid()
         {
             if (CustomerName.Text.Trim() == String.Empty)
             {
                 MessageBox.Show("Sorry! Customer Name not found", "Form Validation Error");
-                return false;                
+                return false;
             }
             if (CustomerAddress.Text.Trim() == String.Empty)
             {
@@ -158,7 +164,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
                 CustomerName.Text = row.Cells[1].Value.ToString();
                 CustomerAddress.Text = row.Cells[3].Value.ToString();
                 CustomerCell.Text = row.Cells[2].Value.ToString();
-                               
+
                 metroButton1.Enabled = false;
                 btn_Update.Enabled = true;
             }
@@ -166,7 +172,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btn_Update_Click(object sender, EventArgs e)
@@ -185,7 +191,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
                         con.Open();
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Customer Updated Successfully in the System", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        myGridView();                        
+                        myGridView();
                         ClearForm();
 
                     }
