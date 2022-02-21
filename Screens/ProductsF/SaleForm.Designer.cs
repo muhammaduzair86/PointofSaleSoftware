@@ -1,7 +1,7 @@
 ﻿
 namespace PointofSaleSoftware.Screens.ProductsF
 {
-    partial class SaleForm
+    partial class frm_SaleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -48,6 +48,13 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.dgv_SalesDet = new System.Windows.Forms.DataGridView();
             this.cbo_ProductName = new System.Windows.Forms.ComboBox();
             this.btn_AddProduct = new MetroFramework.Controls.MetroButton();
+            this.txtSaleQty = new MetroFramework.Controls.MetroTextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtSaleRate = new MetroFramework.Controls.MetroTextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txt_TotalAmount = new MetroFramework.Controls.MetroTextBox();
+            this.btn_Temp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SalesDet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -374,7 +381,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             // 
             this.btn_AddProduct.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.btn_AddProduct.ForeColor = System.Drawing.Color.Red;
-            this.btn_AddProduct.Location = new System.Drawing.Point(677, 9);
+            this.btn_AddProduct.Location = new System.Drawing.Point(752, 31);
             this.btn_AddProduct.Name = "btn_AddProduct";
             this.btn_AddProduct.Size = new System.Drawing.Size(91, 36);
             this.btn_AddProduct.TabIndex = 19;
@@ -382,11 +389,158 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.btn_AddProduct.UseSelectable = true;
             this.btn_AddProduct.Click += new System.EventHandler(this.btn_AddProduct_Click);
             // 
-            // SaleForm
+            // txtSaleQty
+            // 
+            // 
+            // 
+            // 
+            this.txtSaleQty.CustomButton.Image = null;
+            this.txtSaleQty.CustomButton.Location = new System.Drawing.Point(55, 2);
+            this.txtSaleQty.CustomButton.Name = "";
+            this.txtSaleQty.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtSaleQty.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtSaleQty.CustomButton.TabIndex = 1;
+            this.txtSaleQty.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSaleQty.CustomButton.UseSelectable = true;
+            this.txtSaleQty.CustomButton.Visible = false;
+            this.txtSaleQty.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtSaleQty.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtSaleQty.Lines = new string[0];
+            this.txtSaleQty.Location = new System.Drawing.Point(852, 36);
+            this.txtSaleQty.MaxLength = 32767;
+            this.txtSaleQty.Name = "txtSaleQty";
+            this.txtSaleQty.PasswordChar = '\0';
+            this.txtSaleQty.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSaleQty.SelectedText = "";
+            this.txtSaleQty.SelectionLength = 0;
+            this.txtSaleQty.SelectionStart = 0;
+            this.txtSaleQty.ShortcutsEnabled = true;
+            this.txtSaleQty.Size = new System.Drawing.Size(81, 28);
+            this.txtSaleQty.TabIndex = 20;
+            this.txtSaleQty.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSaleQty.UseSelectable = true;
+            this.txtSaleQty.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtSaleQty.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtSaleQty.TextChanged += new System.EventHandler(this.txtSaleQty_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(849, 18);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 15);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Sale Qty";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(936, 14);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(57, 15);
+            this.label9.TabIndex = 23;
+            this.label9.Text = "Sale Rate";
+            // 
+            // txtSaleRate
+            // 
+            // 
+            // 
+            // 
+            this.txtSaleRate.CustomButton.Image = null;
+            this.txtSaleRate.CustomButton.Location = new System.Drawing.Point(55, 2);
+            this.txtSaleRate.CustomButton.Name = "";
+            this.txtSaleRate.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtSaleRate.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtSaleRate.CustomButton.TabIndex = 1;
+            this.txtSaleRate.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSaleRate.CustomButton.UseSelectable = true;
+            this.txtSaleRate.CustomButton.Visible = false;
+            this.txtSaleRate.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtSaleRate.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtSaleRate.Lines = new string[0];
+            this.txtSaleRate.Location = new System.Drawing.Point(939, 36);
+            this.txtSaleRate.MaxLength = 32767;
+            this.txtSaleRate.Name = "txtSaleRate";
+            this.txtSaleRate.PasswordChar = '\0';
+            this.txtSaleRate.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSaleRate.SelectedText = "";
+            this.txtSaleRate.SelectionLength = 0;
+            this.txtSaleRate.SelectionStart = 0;
+            this.txtSaleRate.ShortcutsEnabled = true;
+            this.txtSaleRate.Size = new System.Drawing.Size(81, 28);
+            this.txtSaleRate.TabIndex = 22;
+            this.txtSaleRate.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSaleRate.UseSelectable = true;
+            this.txtSaleRate.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtSaleRate.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(1023, 14);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 15);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Total Amount";
+            // 
+            // txt_TotalAmount
+            // 
+            // 
+            // 
+            // 
+            this.txt_TotalAmount.CustomButton.Image = null;
+            this.txt_TotalAmount.CustomButton.Location = new System.Drawing.Point(55, 2);
+            this.txt_TotalAmount.CustomButton.Name = "";
+            this.txt_TotalAmount.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txt_TotalAmount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txt_TotalAmount.CustomButton.TabIndex = 1;
+            this.txt_TotalAmount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txt_TotalAmount.CustomButton.UseSelectable = true;
+            this.txt_TotalAmount.CustomButton.Visible = false;
+            this.txt_TotalAmount.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txt_TotalAmount.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txt_TotalAmount.Lines = new string[0];
+            this.txt_TotalAmount.Location = new System.Drawing.Point(1026, 36);
+            this.txt_TotalAmount.MaxLength = 32767;
+            this.txt_TotalAmount.Name = "txt_TotalAmount";
+            this.txt_TotalAmount.PasswordChar = '\0';
+            this.txt_TotalAmount.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txt_TotalAmount.SelectedText = "";
+            this.txt_TotalAmount.SelectionLength = 0;
+            this.txt_TotalAmount.SelectionStart = 0;
+            this.txt_TotalAmount.ShortcutsEnabled = true;
+            this.txt_TotalAmount.Size = new System.Drawing.Size(81, 28);
+            this.txt_TotalAmount.TabIndex = 24;
+            this.txt_TotalAmount.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txt_TotalAmount.UseSelectable = true;
+            this.txt_TotalAmount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txt_TotalAmount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // btn_Temp
+            // 
+            this.btn_Temp.Location = new System.Drawing.Point(537, 36);
+            this.btn_Temp.Name = "btn_Temp";
+            this.btn_Temp.Size = new System.Drawing.Size(43, 31);
+            this.btn_Temp.TabIndex = 26;
+            this.btn_Temp.Text = "...";
+            this.btn_Temp.UseVisualStyleBackColor = true;
+            this.btn_Temp.Click += new System.EventHandler(this.btn_Temp_Click);
+            // 
+            // frm_SaleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 538);
+            this.Controls.Add(this.btn_Temp);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txt_TotalAmount);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtSaleRate);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtSaleQty);
             this.Controls.Add(this.btn_AddProduct);
             this.Controls.Add(this.cbo_ProductName);
             this.Controls.Add(this.dgv_SalesDet);
@@ -406,8 +560,8 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.Controls.Add(this.cbo_Customer);
             this.Controls.Add(this.dt_InvoiceDate);
             this.Controls.Add(this.txtInvoiceNumber);
-            this.Name = "SaleForm";
-            this.Text = "SaleForm";
+            this.Name = "frm_SaleForm";
+            this.Text = "frm_SaleForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.SaleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SalesDet)).EndInit();
@@ -436,5 +590,12 @@ namespace PointofSaleSoftware.Screens.ProductsF
         private System.Windows.Forms.DataGridView dgv_SalesDet;
         private System.Windows.Forms.ComboBox cbo_ProductName;
         private MetroFramework.Controls.MetroButton btn_AddProduct;
+        private MetroFramework.Controls.MetroTextBox txtSaleQty;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private MetroFramework.Controls.MetroTextBox txtSaleRate;
+        private System.Windows.Forms.Label label10;
+        private MetroFramework.Controls.MetroTextBox txt_TotalAmount;
+        private System.Windows.Forms.Button btn_Temp;
     }
 }

@@ -13,9 +13,9 @@ using System.Data.SqlClient;
 
 namespace PointofSaleSoftware.Screens.ProductsF
 {
-    public partial class SaleForm : MetroFramework.Forms.MetroForm
+    public partial class frm_SaleForm : MetroFramework.Forms.MetroForm
     {
-        public SaleForm()
+        public frm_SaleForm()
         {
             InitializeComponent();
         }
@@ -43,52 +43,95 @@ namespace PointofSaleSoftware.Screens.ProductsF
         }
         private void generateGrid()
         {
-            using (SqlConnection con = new SqlConnection(ApplicationSetting.ConnectionString()))
+
+            if (cbo_ProductName.Text != "")
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.getSalePrice(@ProdID);", con))
-                {
-                    cmd.Parameters.AddWithValue("@ProdID", cbo_ProductName.SelectedValue);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    //DataTable dt = (DataTable) dgv_SalesDet.DataSource;
-                    DataRow dr = dt.NewRow();
-                    da.Fill(dt);
-                    dgv_SalesDet.DataSource = dt;
-                    dt.Rows.Add(dr);
-                    /*dr["DetailID"] = DBNull.Value;
-                    dr["InvoiceNumber"] = DBNull.Value;
-                    //if (!string.IsNullOrEmpty((string)cbo_ProductName.SelectedValue))
-                    dr["ProductID"] = Convert.ToInt32(cbo_ProductName.SelectedValue);
-                    dr["Quantity"] = 1;
-                    //dr["SaleRate"] = dt.Columns[4];
-                    //dr["TotalAmount"] = dt.Columns[6];*/
-
-
-
-                }
+                DataTable dt = (DataTable)dgv_SalesDet.DataSource;
+                DataRow dr = dt.NewRow();
+                dr["DetailID"] = DBNull.Value;
+                dr["InvoiceNumber"] = DBNull.Value;
+                if (!string.IsNullOrEmpty((string)txtInvoiceNumber.Text))
+                dr["ProductID"] = Convert.ToInt32(cbo_ProductName.SelectedValue);
+                dr["Quantity"] = 1;
+                dr["SaleRate"] = Convert.ToDecimal(txtSaleQty.Text);
+                dr["TotalAmount"] = 1 * Convert.ToDecimal(txtSaleQty.Text);
+                dt.Rows.Add(dr);
+                dgv_SalesDet.DataSource = dt;
             }
+            else 
+            {
+                _ = MessageBox.Show("Nothing Selected from Product List", "Form Validation Error");
+            }
+
+
         }
 
         private void btn_AddProduct_Click(object sender, EventArgs e)
         {
+            //returnProductData();
             generateGrid();
         }
 
-
-        /*private void CalculateTotals()
+        
+        private void returnProductData()
         {
-            double total = 0;
-            DataTable dt = (DataTable)dgv_SalesDet.DataSource;
-            foreach (DataRow dataRow in dt.Rows)
-            {
-                if (dataRow.RowState != DataRowState.Deleted)
-                    total += Convert.ToDouble(dataRow["TotalPrice"]);
-            }
-            txtGrandTotal.Text = total.ToString("n2");
+            
+                using (SqlConnection con = new SqlConnection(ApplicationSetting.ConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.getSalePrice(@ProdID);", con))
+                    {
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@ProdID", cbo_ProductName.SelectedValue);
+                        SqlDataReader da = cmd.ExecuteReader();
+                        while (da.Read())
+                        {
+                            txtSaleQty.Text = da.GetValue(5).ToString();
+                            txtSaleRate.Text = da.GetValue(4).ToString();
+                            double sq, sr, tp;
+                            sq = int.Parse(txtSaleQty.Text);
+                            sr = double.Parse(txtSaleRate.Text);
+                            tp = sq * sr;
+                            txt_TotalAmount.Text = Convert.ToString(tp);
+                            
+                        }
+                        con.Close();
+                    }
+                }
+           
         }
-        */
+
+      
+
+        private void txtSaleQty_TextChanged(object sender, EventArgs e)
+        {
+           /* if (txtSaleQty.Text != "")
+            {
+                double usq, osr, utp;                
+                usq = int.Parse(txtSaleQty.Text);
+                osr = double.Parse(txtSaleRate.Text);
+                utp = usq * osr;
+                txt_TotalAmount.Text = Convert.ToString(utp);
+                this.CalculateTotals();
+            }*/
+        }
 
 
 
+        private void CalculateTotals()
+       {
+           double total = 0;
+           DataTable dt = (DataTable)dgv_SalesDet.DataSource;
+           foreach (DataRow dataRow in dt.Rows)
+           {
+               if (dataRow.RowState != DataRowState.Deleted)
+                   total += Convert.ToDouble(dataRow["TotalPrice"]);
+           }
+           txtGrandTotal.Text = total.ToString("n2");
+       }
+
+        private void btn_Temp_Click(object sender, EventArgs e)
+        {
+            returnProductData();
+        }
     }
-}
+        }

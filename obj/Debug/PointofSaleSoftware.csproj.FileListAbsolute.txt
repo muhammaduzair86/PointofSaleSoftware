@@ -76,9 +76,9 @@ D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.S
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.exe.licenses
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.POS.resources
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.Screens.ProductsF.btn_Save_Sales.resources
-D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.Screens.ProductsF.SaleForm.resources
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.csproj.AssemblyReference.cache
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\bin\Debug\EntityFramework.dll
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\bin\Debug\EntityFramework.SqlServer.dll
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\bin\Debug\EntityFramework.xml
 D:\2 - High Risk\POS_Project\PointofSaleSoftware\bin\Debug\EntityFramework.SqlServer.xml
+D:\2 - High Risk\POS_Project\PointofSaleSoftware\obj\Debug\PointofSaleSoftware.Screens.ProductsF.frm_SaleForm.resources
