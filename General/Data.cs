@@ -58,11 +58,20 @@ namespace PointofSaleSoftware.General
 
         //Data Binding in Combobox
         public static void Bind(ComboBox controlName, string query, string displayMember, string valueMember)
-        {
+        {           
             controlName.ValueMember = valueMember;
             controlName.DisplayMember = displayMember;
             controlName.DataSource = RunSelectQuery(query);
             controlName.SelectedIndex = -1;
+        }
+
+        public static decimal SaleValueCalc(string val1,string val2)
+        {
+            decimal qty=0, salerate=0, rowAmount=0;
+            decimal.TryParse(val1, out qty);
+            decimal.TryParse(val2, out salerate);
+            rowAmount = qty * salerate;
+            return rowAmount;                       
         }
 
     }

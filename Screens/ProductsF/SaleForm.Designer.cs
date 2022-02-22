@@ -54,7 +54,8 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtSaleRate = new MetroFramework.Controls.MetroTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_TotalAmount = new MetroFramework.Controls.MetroTextBox();
-            this.btn_Temp = new System.Windows.Forms.Button();
+            this.btn_Save = new MetroFramework.Controls.MetroButton();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SalesDet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,7 +97,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.dt_InvoiceDate.MinimumSize = new System.Drawing.Size(0, 29);
             this.dt_InvoiceDate.Name = "dt_InvoiceDate";
             this.dt_InvoiceDate.Size = new System.Drawing.Size(200, 29);
-            this.dt_InvoiceDate.TabIndex = 1;
+            this.dt_InvoiceDate.TabIndex = 0;
             this.dt_InvoiceDate.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // cbo_Customer
@@ -107,7 +108,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.cbo_Customer.Location = new System.Drawing.Point(6, 165);
             this.cbo_Customer.Name = "cbo_Customer";
             this.cbo_Customer.Size = new System.Drawing.Size(216, 27);
-            this.cbo_Customer.TabIndex = 2;
+            this.cbo_Customer.TabIndex = 1;
             // 
             // label1
             // 
@@ -157,7 +158,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtGrandTotal.SelectionStart = 0;
             this.txtGrandTotal.ShortcutsEnabled = true;
             this.txtGrandTotal.Size = new System.Drawing.Size(160, 30);
-            this.txtGrandTotal.TabIndex = 5;
+            this.txtGrandTotal.TabIndex = 9999;
             this.txtGrandTotal.TabStop = false;
             this.txtGrandTotal.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtGrandTotal.UseSelectable = true;
@@ -211,11 +212,12 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtDiscount.SelectionStart = 0;
             this.txtDiscount.ShortcutsEnabled = true;
             this.txtDiscount.Size = new System.Drawing.Size(160, 30);
-            this.txtDiscount.TabIndex = 7;
+            this.txtDiscount.TabIndex = 5;
             this.txtDiscount.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtDiscount.UseSelectable = true;
             this.txtDiscount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtDiscount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtDiscount.TextChanged += new System.EventHandler(this.txtDiscount_TextChanged);
             // 
             // label5
             // 
@@ -299,11 +301,12 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtCash.SelectionStart = 0;
             this.txtCash.ShortcutsEnabled = true;
             this.txtCash.Size = new System.Drawing.Size(160, 30);
-            this.txtCash.TabIndex = 11;
+            this.txtCash.TabIndex = 6;
             this.txtCash.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtCash.UseSelectable = true;
             this.txtCash.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtCash.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtCash.TextChanged += new System.EventHandler(this.txtCash_TextChanged);
             // 
             // label7
             // 
@@ -363,9 +366,9 @@ namespace PointofSaleSoftware.Screens.ProductsF
             // dgv_SalesDet
             // 
             this.dgv_SalesDet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_SalesDet.Location = new System.Drawing.Point(230, 101);
+            this.dgv_SalesDet.Location = new System.Drawing.Point(230, 82);
             this.dgv_SalesDet.Name = "dgv_SalesDet";
-            this.dgv_SalesDet.Size = new System.Drawing.Size(1024, 414);
+            this.dgv_SalesDet.Size = new System.Drawing.Size(1024, 433);
             this.dgv_SalesDet.TabIndex = 17;
             // 
             // cbo_ProductName
@@ -375,16 +378,17 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.cbo_ProductName.Location = new System.Drawing.Point(217, 36);
             this.cbo_ProductName.Name = "cbo_ProductName";
             this.cbo_ProductName.Size = new System.Drawing.Size(314, 31);
-            this.cbo_ProductName.TabIndex = 18;
+            this.cbo_ProductName.TabIndex = 2;
+            this.cbo_ProductName.SelectedIndexChanged += new System.EventHandler(this.cbo_ProductName_SelectedIndexChanged);
             // 
             // btn_AddProduct
             // 
             this.btn_AddProduct.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.btn_AddProduct.ForeColor = System.Drawing.Color.Red;
-            this.btn_AddProduct.Location = new System.Drawing.Point(752, 31);
+            this.btn_AddProduct.Location = new System.Drawing.Point(798, 31);
             this.btn_AddProduct.Name = "btn_AddProduct";
             this.btn_AddProduct.Size = new System.Drawing.Size(91, 36);
-            this.btn_AddProduct.TabIndex = 19;
+            this.btn_AddProduct.TabIndex = 4;
             this.btn_AddProduct.Text = "Add Product";
             this.btn_AddProduct.UseSelectable = true;
             this.btn_AddProduct.Click += new System.EventHandler(this.btn_AddProduct_Click);
@@ -406,7 +410,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtSaleQty.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtSaleQty.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
             this.txtSaleQty.Lines = new string[0];
-            this.txtSaleQty.Location = new System.Drawing.Point(852, 36);
+            this.txtSaleQty.Location = new System.Drawing.Point(537, 39);
             this.txtSaleQty.MaxLength = 32767;
             this.txtSaleQty.Name = "txtSaleQty";
             this.txtSaleQty.PasswordChar = '\0';
@@ -416,7 +420,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtSaleQty.SelectionStart = 0;
             this.txtSaleQty.ShortcutsEnabled = true;
             this.txtSaleQty.Size = new System.Drawing.Size(81, 28);
-            this.txtSaleQty.TabIndex = 20;
+            this.txtSaleQty.TabIndex = 3;
             this.txtSaleQty.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtSaleQty.UseSelectable = true;
             this.txtSaleQty.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -427,7 +431,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(849, 18);
+            this.label8.Location = new System.Drawing.Point(537, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(52, 15);
             this.label8.TabIndex = 21;
@@ -437,7 +441,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(936, 14);
+            this.label9.Location = new System.Drawing.Point(621, 17);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 15);
             this.label9.TabIndex = 23;
@@ -460,7 +464,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txtSaleRate.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtSaleRate.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
             this.txtSaleRate.Lines = new string[0];
-            this.txtSaleRate.Location = new System.Drawing.Point(939, 36);
+            this.txtSaleRate.Location = new System.Drawing.Point(624, 39);
             this.txtSaleRate.MaxLength = 32767;
             this.txtSaleRate.Name = "txtSaleRate";
             this.txtSaleRate.PasswordChar = '\0';
@@ -480,7 +484,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(1023, 14);
+            this.label10.Location = new System.Drawing.Point(708, 17);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(81, 15);
             this.label10.TabIndex = 25;
@@ -503,10 +507,11 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txt_TotalAmount.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txt_TotalAmount.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
             this.txt_TotalAmount.Lines = new string[0];
-            this.txt_TotalAmount.Location = new System.Drawing.Point(1026, 36);
+            this.txt_TotalAmount.Location = new System.Drawing.Point(711, 39);
             this.txt_TotalAmount.MaxLength = 32767;
             this.txt_TotalAmount.Name = "txt_TotalAmount";
             this.txt_TotalAmount.PasswordChar = '\0';
+            this.txt_TotalAmount.ReadOnly = true;
             this.txt_TotalAmount.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txt_TotalAmount.SelectedText = "";
             this.txt_TotalAmount.SelectionLength = 0;
@@ -514,27 +519,42 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.txt_TotalAmount.ShortcutsEnabled = true;
             this.txt_TotalAmount.Size = new System.Drawing.Size(81, 28);
             this.txt_TotalAmount.TabIndex = 24;
+            this.txt_TotalAmount.TabStop = false;
             this.txt_TotalAmount.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txt_TotalAmount.UseSelectable = true;
             this.txt_TotalAmount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txt_TotalAmount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // btn_Temp
+            // btn_Save
             // 
-            this.btn_Temp.Location = new System.Drawing.Point(537, 36);
-            this.btn_Temp.Name = "btn_Temp";
-            this.btn_Temp.Size = new System.Drawing.Size(43, 31);
-            this.btn_Temp.TabIndex = 26;
-            this.btn_Temp.Text = "...";
-            this.btn_Temp.UseVisualStyleBackColor = true;
-            this.btn_Temp.Click += new System.EventHandler(this.btn_Temp_Click);
+            this.btn_Save.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btn_Save.ForeColor = System.Drawing.Color.Red;
+            this.btn_Save.Location = new System.Drawing.Point(895, 31);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Size = new System.Drawing.Size(91, 36);
+            this.btn_Save.TabIndex = 10000;
+            this.btn_Save.Text = "Save Record";
+            this.btn_Save.UseSelectable = true;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // metroButton1
+            // 
+            this.metroButton1.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.metroButton1.ForeColor = System.Drawing.Color.Red;
+            this.metroButton1.Location = new System.Drawing.Point(992, 31);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(91, 36);
+            this.metroButton1.TabIndex = 10001;
+            this.metroButton1.Text = "Save Record";
+            this.metroButton1.UseSelectable = true;
             // 
             // frm_SaleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 538);
-            this.Controls.Add(this.btn_Temp);
+            this.Controls.Add(this.metroButton1);
+            this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txt_TotalAmount);
             this.Controls.Add(this.label9);
@@ -564,6 +584,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
             this.Text = "frm_SaleForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.SaleForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_SaleForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SalesDet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -596,6 +617,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
         private MetroFramework.Controls.MetroTextBox txtSaleRate;
         private System.Windows.Forms.Label label10;
         private MetroFramework.Controls.MetroTextBox txt_TotalAmount;
-        private System.Windows.Forms.Button btn_Temp;
+        private MetroFramework.Controls.MetroButton btn_Save;
+        private MetroFramework.Controls.MetroButton metroButton1;
     }
 }

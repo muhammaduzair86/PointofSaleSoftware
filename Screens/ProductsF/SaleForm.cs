@@ -20,10 +20,23 @@ namespace PointofSaleSoftware.Screens.ProductsF
             InitializeComponent();
         }
 
+
         private void SaleForm_Load(object sender, EventArgs e)
         {
+            dginitialize();
             CustomProcess();
+            ClearSaleForm();
+            cbo_ProductName.Focus();
 
+        }
+        private void dginitialize()
+        {
+            //initialize datagridview datasource
+            string query = "select * from SalesOrderDetails where DetailID=-1";
+            DataTable dt = Data.RunSelectQuery(query);
+            dgv_SalesDet.DataSource = dt;
+            dgv_SalesDet.Columns[0].Visible = false;
+            dgv_SalesDet.Columns[1].Visible = false;
         }
         private void CustomProcess()
         {
@@ -38,7 +51,7 @@ namespace PointofSaleSoftware.Screens.ProductsF
 
             cbo_ProductName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cbo_ProductName.AutoCompleteSource = AutoCompleteSource.ListItems;
-            Data.Bind(cbo_ProductName, "Select Name as PName, ProductID from Products ", "PName", "ProductID");
+            Data.Bind(cbo_ProductName, "Select Name, ProductID from Products ", "Name", "ProductID");
 
         }
         private void generateGrid()
@@ -50,18 +63,21 @@ namespace PointofSaleSoftware.Screens.ProductsF
                 DataRow dr = dt.NewRow();
                 dr["DetailID"] = DBNull.Value;
                 dr["InvoiceNumber"] = DBNull.Value;
-                if (!string.IsNullOrEmpty((string)txtInvoiceNumber.Text))
                 dr["ProductID"] = Convert.ToInt32(cbo_ProductName.SelectedValue);
-                dr["Quantity"] = 1;
-                dr["SaleRate"] = Convert.ToDecimal(txtSaleQty.Text);
-                dr["TotalAmount"] = 1 * Convert.ToDecimal(txtSaleQty.Text);
+                dr["ProductName"] = ((DataRowView)cbo_ProductName.SelectedItem)["Name"].ToString();
+                decimal qty, rate, price;
+                qty = Convert.ToDecimal(txtSaleQty.Text);
+                rate = Convert.ToDecimal(txtSaleRate.Text);
+                price = qty * rate;
+                dr["Quantity"] = qty;
+                dr["Price"] = rate;
+                dr["TotalPrice"] = price;
                 dt.Rows.Add(dr);
                 dgv_SalesDet.DataSource = dt;
+                ClearSaleForm();
+                cbo_ProductName.Focus();
             }
-            else 
-            {
-                _ = MessageBox.Show("Nothing Selected from Product List", "Form Validation Error");
-            }
+
 
 
         }
@@ -70,68 +86,180 @@ namespace PointofSaleSoftware.Screens.ProductsF
         {
             //returnProductData();
             generateGrid();
+            CalculateTotals();
+            //ClearSaleForm();
         }
 
-        
+
         private void returnProductData()
         {
-            
-                using (SqlConnection con = new SqlConnection(ApplicationSetting.ConnectionString()))
+            string query = "SELECT * FROM dbo.getSalePrice('" + cbo_ProductName.SelectedValue.ToString() + "')";
+            DataTable dt = Data.RunSelectQuery(query);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                txtSaleQty.Text = dt.Rows[0]["Quantity"].ToString();
+                txtSaleRate.Text = dt.Rows[0]["SaleRate"].ToString();
+            }
+            /*
+            using (SqlConnection con = new SqlConnection(ApplicationSetting.ConnectionString()))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.getSalePrice(@ProdID);", con))
                 {
-                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.getSalePrice(@ProdID);", con))
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@ProdID", cbo_ProductName.SelectedValue);
+                    SqlDataReader da = cmd.ExecuteReader();
+                    while (da.Read())
                     {
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@ProdID", cbo_ProductName.SelectedValue);
-                        SqlDataReader da = cmd.ExecuteReader();
-                        while (da.Read())
-                        {
-                            txtSaleQty.Text = da.GetValue(5).ToString();
-                            txtSaleRate.Text = da.GetValue(4).ToString();
-                            double sq, sr, tp;
-                            sq = int.Parse(txtSaleQty.Text);
-                            sr = double.Parse(txtSaleRate.Text);
-                            tp = sq * sr;
-                            txt_TotalAmount.Text = Convert.ToString(tp);
-                            
-                        }
-                        con.Close();
+                        txtSaleQty.Text = da.GetValue(5).ToString();
+                        txtSaleRate.Text = da.GetValue(4).ToString();
+                        double sq, sr, tp;
+                        sq = int.Parse(txtSaleQty.Text);
+                        sr = double.Parse(txtSaleRate.Text);
+                        tp = sq * sr;
+                        txt_TotalAmount.Text = Convert.ToString(tp);
+
                     }
+                    con.Close();
                 }
-           
+            }
+            */
         }
 
-      
+
 
         private void txtSaleQty_TextChanged(object sender, EventArgs e)
         {
-           /* if (txtSaleQty.Text != "")
+            if (txtSaleQty.Text != "")
             {
-                double usq, osr, utp;                
-                usq = int.Parse(txtSaleQty.Text);
-                osr = double.Parse(txtSaleRate.Text);
-                utp = usq * osr;
-                txt_TotalAmount.Text = Convert.ToString(utp);
-                this.CalculateTotals();
-            }*/
+                decimal ta = Data.SaleValueCalc(txtSaleQty.Text, txtSaleRate.Text);
+                txt_TotalAmount.Text = Convert.ToString(ta);
+                CalculateTotals();
+            }
+            else
+            {
+                MessageBox.Show("Please Enter Sale Qty", "Sale Qty Error");
+                txtSaleQty.Focus();
+            }
         }
 
 
 
         private void CalculateTotals()
-       {
-           double total = 0;
-           DataTable dt = (DataTable)dgv_SalesDet.DataSource;
-           foreach (DataRow dataRow in dt.Rows)
-           {
-               if (dataRow.RowState != DataRowState.Deleted)
-                   total += Convert.ToDouble(dataRow["TotalPrice"]);
-           }
-           txtGrandTotal.Text = total.ToString("n2");
-       }
+        {
+            double total = 0;
+            DataTable dt = (DataTable)dgv_SalesDet.DataSource;
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                if (dataRow.RowState != DataRowState.Deleted)
+                    total += Convert.ToDouble(dataRow["TotalPrice"]);
+            }
+            txtGrandTotal.Text = total.ToString("n2");
+        }
 
         private void btn_Temp_Click(object sender, EventArgs e)
         {
-            returnProductData();
+
+        }
+
+        private void cbo_ProductName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbo_ProductName.SelectedIndex >= 0)
+            {
+                returnProductData();
+                txtSaleQty.Focus();
+            }
+        }
+        private void ClearSaleForm()
+        {
+            cbo_ProductName.Text = "";
+            txtSaleQty.Text = "";
+            txtSaleRate.Text = "";
+            txt_TotalAmount.Text = "";
+            txtGrandTotal.Text = "";
+            txtDiscount.Text = "";
+            txtCash.Text = "";
+            txtNet.Text = "";
+            txtBalance.Text = "";
+            
+            cbo_ProductName.Focus();
+        }
+
+        private void frm_SaleForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.D)
+
+            {
+                txtDiscount.Focus();
+            }
+        }
+
+        private void txtDiscount_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDiscount.Text != "")
+            {
+                decimal myNet;
+                myNet = Convert.ToDecimal(txtGrandTotal.Text) - Convert.ToDecimal(txtDiscount.Text);
+                txtNet.Text = myNet.ToString();
+            }
+        }
+
+        private void txtCash_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCash.Text != "")
+            {
+                decimal myCash, myBalance;
+                myCash = Convert.ToDecimal(txtCash.Text);
+                myBalance = Convert.ToDecimal(txtNet.Text) - myCash;
+                txtBalance.Text = myBalance.ToString();
+            }
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            if (txtGrandTotal.Text != "")
+            {
+                InsertSalesData();
+            }
+            else
+            {
+                MessageBox.Show("No Data found to Insert", "Please enter Sale Data", MessageBoxButtons.OK);
+                cbo_ProductName.Focus();
+            }
+        }
+        private void InsertSalesData()
+        {
+            string query = @"insert into SalesOrders (InvoiceDate, CustomerID, GrandTotal,Discount,Net,Cash,Balance)
+                    values('" + dt_InvoiceDate.Value.ToString("yyyy-MM-dd") + @"'
+                    ,'" + cbo_ProductName.SelectedValue + @"'
+                    ,'" + ((string.IsNullOrEmpty(txtGrandTotal.Text)) ? 0 : Convert.ToDecimal(txtGrandTotal.Text)) + @"'
+		            ,'" + ((string.IsNullOrEmpty(txtDiscount.Text))? 0 : Convert.ToDecimal(txtDiscount.Text)) + @"'
+		            ,'" + ((string.IsNullOrEmpty(txtNet.Text))? 0 : Convert.ToDecimal(txtNet.Text)) + @"'
+		            ,'" + ((string.IsNullOrEmpty(txtCash.Text)) ? 0 : Convert.ToDecimal(txtCash.Text)) + @"'
+		            ,'" + ((string.IsNullOrEmpty(txtBalance.Text)) ? 0 : Convert.ToDecimal(txtBalance.Text)) + "'); select scope_identity()";
+            int pid = Data.RunActionQuery(query);
+            //if (pid > 0)
+            //{
+            DataTable dt = (DataTable)dgv_SalesDet.DataSource;
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                if (dataRow.RowState != DataRowState.Deleted)
+                {
+                    query = @"insert into SalesOrderDetails (InvoiceNumber, ProductID, Price, Quantity, TotalPrice,ProductName)
+                            values('" + pid + @"'                            
+                            , '" + dataRow["ProductID"] + @"'
+                            , '" + dataRow["Quantity"] + @"'
+                            , '" + dataRow["Price"] + @"'
+                            , '" + dataRow["TotalPrice"] + @"'
+                            , '" + dataRow["ProductName"] + @"'
+                            )";
+                    Data.RunActionQuery(query);
+                }                
+            }
+            MessageBox.Show("Saved");
+            ClearSaleForm();
+            dginitialize();
         }
     }
-        }
+}
+
+
